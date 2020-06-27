@@ -22,6 +22,7 @@ func main() {
 		log.Fatal("Please pass a number as an argument")
 	}
 
-	f := calculations.NaiveFactorial(n)
+	// f := calculations.FactorialNaive(n)
+	f := calculations.FactorialTree(n)
 	fmt.Println(f)
 }
