@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"time"
 
 	"github.com/yalalovsm/factorial/calculations"
 )
@@ -22,7 +23,12 @@ func main() {
 		log.Fatal("Please pass a number as an argument")
 	}
 
-	// f := calculations.FactorialNaive(n)
-	f := calculations.FactorialTree(n)
-	fmt.Println(f)
+	start := time.Now()
+
+	// calculations.FactorialNaive(n)
+	calculations.FactorialTree(n)
+	// calculations.FactorialNaiveChannels(n)
+
+	elapsed := time.Since(start)
+	fmt.Printf("\nit took %s\n", elapsed)
 }

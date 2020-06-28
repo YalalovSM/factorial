@@ -1,6 +1,8 @@
 package calculations
 
-import "math/big"
+import (
+	"math/big"
+)
 
 // FactorialNaive Calculate factorial by naive way
 func FactorialNaive(n int) *big.Int {
@@ -45,4 +47,24 @@ func prodTree(left, right int) *big.Int {
 	m := (left + right) / 2
 
 	return big.NewInt(0).Mul(prodTree(left, m), prodTree(m+1, right))
+}
+
+// FactorialNaiveChannels calculate factorial by naive way but using goroutines
+func FactorialNaiveChannels(n int) *big.Int {
+	ch := make(chan *big.Int)
+
+	go factorialNaiveChannels(n, big.NewInt(1), ch)
+
+	return <-ch
+}
+
+func factorialNaiveChannels(n int, res *big.Int, ch chan *big.Int) {
+	res = big.NewInt(0).Mul(res, big.NewInt(int64(n)))
+
+	if n == 1 {
+		ch <- res
+		return
+	}
+
+	go factorialNaiveChannels(n-1, res, ch)
 }
