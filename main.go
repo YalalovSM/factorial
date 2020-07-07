@@ -1,34 +1,15 @@
 package main
 
 import (
-	"fmt"
 	"log"
-	"os"
-	"strconv"
-	"time"
 
-	"github.com/yalalovsm/factorial/calculations"
+	"github.com/yalalovsm/factorial/server"
 )
 
 func main() {
-	args := os.Args[1:]
+	s := server.New()
 
-	if len(args) < 1 {
-		fmt.Println("Usage: main.go <number>")
-		return
+	if err := s.Start(); err != nil {
+		log.Fatal(err)
 	}
-
-	n, err := strconv.Atoi(args[0])
-	if err != nil {
-		log.Fatal("Please pass a number as an argument")
-	}
-
-	start := time.Now()
-
-	// calculations.FactorialNaive(n)
-	calculations.FactorialTree(n)
-	// calculations.FactorialNaiveChannels(n)
-
-	elapsed := time.Since(start)
-	fmt.Printf("\nit took %s\n", elapsed)
 }
